@@ -1,1 +1,8 @@
-No starter code is provided. Start from scratch!
+cd server
+npm i
+run dev start
+
+
+cd client
+npm i
+npm start
