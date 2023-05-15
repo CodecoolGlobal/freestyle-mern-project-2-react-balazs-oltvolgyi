@@ -8,16 +8,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   email: {
     type: Email,//String
   },
   address: {
     type: String,
-  },
-  shoeSize: {
-    type: Number,
-    required: true,
-    min: 18,
   },
   points: Number,
 });

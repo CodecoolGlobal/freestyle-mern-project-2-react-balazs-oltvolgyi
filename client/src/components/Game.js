@@ -28,9 +28,12 @@ function Game(props) {//ide majd useProps wagy rögtön distrust
       randomFlagFn();
       toast("Made it, next turn!", { theme: "dark" });
     } else {
-      if (counter < 2) {
+      if (counter === 0) {
         setCounter(counter + 1);
-        toast("Incorrect, try again...", { theme: "dark" });
+        toast(`Incorrect, try again... Capital is ${randCountry.capital[0]}`, { theme: "dark" });
+      } else if (counter === 1) {
+        setCounter(counter + 1);
+        toast(`Incorrect, try again... Region is ${randCountry.region}`, { theme: "dark" });
       } else {
         randomFlagFn();
         setCounter(0);

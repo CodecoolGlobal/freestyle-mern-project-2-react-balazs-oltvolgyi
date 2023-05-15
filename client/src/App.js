@@ -3,6 +3,9 @@ import "./App.css";
 import Game from "./components/Game.js";
 import Welcome from "./components/Welcome";
 import LeaderBoard from "./components/LeaderBoard";
+import Login from "./components/Login";
+import Register from "./components/Register";
+
 
 function App() {
   const [data, setData] = useState([]);
@@ -17,7 +20,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         const nameAndFlag = data.map((cou) => {
-          return { name: cou.name.common, flag: cou.flags.png };
+          return { name: cou.name.common, flag: cou.flags.png, region: cou.region, capital: cou.capital };
         });
         setData(nameAndFlag);
       })
@@ -29,7 +32,10 @@ function App() {
       {(() => {
         switch (screen) {
           case "welcome": {
-            return <Welcome setUser={setUser} setScreen={setScreen} />;
+            return <Login setUser={setUser} setScreen={setScreen} />;
+          }
+          case "register": {
+            return <Register setUser={setUser} setScreen={setScreen} />;
           }
           case "game": {
             return (

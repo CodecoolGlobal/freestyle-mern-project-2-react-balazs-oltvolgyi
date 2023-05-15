@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const User = require("./model/User.js");
 const LeaderBoard = require("./model/LeaderBoard.js");
+// const UserSchema = require("./model/User.js");
 
 const app = express();
 
@@ -29,6 +30,43 @@ app.use(
 mongoose.connect(
   "mongodb+srv://mongoDBuser:8xBqvbasy84EHKe@cluster0.ahid9oc.mongodb.net/flagfun"
 );
+
+
+// name and password validation
+app.get("/:name/:password", async (req, res) => {
+  //console.log(req.params.name, req.params.password);
+
+ try {
+  let foundUser = await User.findOne({name: req.params.name});
+
+  !foundUser 
+  ? res.json("Incorrect name!")
+  : foundUser.password === req.params.password 
+  ? res.json(foundUser) 
+  : res.json("Incorrect password!")
+
+
+ } catch (error) {
+  res.json(error);
+ }
+
+})
+
+app.post("/register", async (req, res) => {
+  
+  try {
+    const userNameExists = await User.findOne({name: req.body.name});
+
+    if (!userNameExists ) {
+      let newUser = await User.create(req.body)
+      res.json(newUser);
+    } else {
+      res.json("User already existst!")
+    }
+  } catch (error) {
+    res.json(error)
+  }
+})
 
 app.post("/api/score", async (req, res) => {
   // try {
