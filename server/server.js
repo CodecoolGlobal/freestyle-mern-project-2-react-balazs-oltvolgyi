@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
 );
@@ -61,37 +61,26 @@ app.post("/register", async (req, res) => {
       let newUser = await User.create(req.body)
       res.json(newUser);
     } else {
-      res.json("User already existst!")
+      res.json("User already exists!")
     }
   } catch (error) {
     res.json(error)
   }
 })
 
-app.post("/api/score", async (req, res) => {
-  // try {
-  //   let newUser = req.body;
-  //   // User.findOne({ name: newUser.name, email: newUser.email }).then((user) => {
-  //   //   if (user) {
-  //   //     res.json({ message: "User already exists!", user: user });
-  //   //   } else {
-  //   //const newCreatedUser = User.create(req.body)
-  //   //  res.status(200).json({message:"New user created", user: newCreatedUser});
-  //  // }
-  //  // });
-  // } catch (error) {
-  //   res.status(500).json("error");
-  // }
+app.patch("/api/score", async (req, res) => {
+  console.log(req.body.name, req.body.score);
+try {
+  await User.findOneAndUpdate({name: req.body.name}, { $inc: { points: req.body.score } }, {new: true});
+  const responseBody = await User.find({},{name:1, points:1}).sort({ points: "desc" });
 
-  const user = req.body.name;
-  const score = req.body.score;
+  console.log(responseBody);
 
-  const newScore = new LeaderBoard({
-    name: user,
-    score: score,
-  });
-  newScore.save().then(() => { LeaderBoard.find().then((data) => res.json(data)).catch(e=>console.log(e)) })
-  ;
+  res.json(responseBody);
+} catch (error) {
+  res.json(error);
+}
+
 });
 
 app.listen(3001, () => console.log("Server started on port 3001"));

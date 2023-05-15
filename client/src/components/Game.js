@@ -65,19 +65,16 @@ function Game(props) {//ide majd useProps wagy rögtön distrust
       setRandCountry(data[randNum]);
     }
   }
-  async function fetchPost() {
+  async function updateUserScore() {
     try {
       const res = await fetch("http://localhost:3001/api/score", {
-        method: "POST",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: user.name, score: score }),
       });
       const data = await res.json();
-      console.log(data);
-      const sortedUsersFromData = data.sort((a, b) =>
-        a.score > b.score ? -1 : 1
-      );
-      setSortedUsers(sortedUsersFromData);
+      //console.log(data);
+      setSortedUsers(data);
     } catch (error) {
       console.error("Something went wrong!");
     }
@@ -86,12 +83,13 @@ function Game(props) {//ide majd useProps wagy rögtön distrust
   function handleFinish() {
     console.log(user);
     console.log(score);
-    fetchPost();
+    updateUserScore();
     setScreen("leaderboard");
   }
 
   return (
     <div className="gameFirstDiv">
+      <p>Logged in as {user.name}</p>
       <span className="text">What country does this flag belongs to?</span>
       <img
         alt="flag of randCountry name"

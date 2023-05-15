@@ -18,7 +18,7 @@ function LeaderBoard(props) {
         {sortedUsers.map((user) => (
           <tr className="scoreEntry" key={user.name}>
             <td className="nameCell">{user.name}</td>
-            <td className="scoreCell">{user.score}</td>
+            <td className="scoreCell">{user.points}</td>
           </tr>
         ))}
       </table>

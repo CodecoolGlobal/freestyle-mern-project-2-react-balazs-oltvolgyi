@@ -16,7 +16,7 @@ function Login(props) {
     .then(data => 
         typeof data === "object" 
         ? (setScreen("game"), setUser(data))
-        : toast("Incorrect name and/or password!", { theme: "light" }))
+        : toast("Incorrect name and/or password!", { theme: "dark", position: "top-right" }))
       }
 
   return (
@@ -45,7 +45,7 @@ function Login(props) {
       <button style={{fontSize:"small"}} onClick={() => setScreen("register")} className="userFormButton">
           Register<span></span>
         </button>
-        <ToastContainer theme="light" />
+        <ToastContainer theme="dark" position="top-right" />
     </div>
   );
 }

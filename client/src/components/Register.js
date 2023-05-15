@@ -24,7 +24,11 @@ function Register(props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser)
     }).then(res => res.json()).then(data => 
-        console.log(data))
+        typeof data === "string" 
+        ? toast("Username already exists!", { theme: "dark" })
+        : (setScreen("game"), 
+            setUser(data))
+        )
     : toast("The passwords do not match!", { theme: "dark" })
 
     //   setScreen("game");
