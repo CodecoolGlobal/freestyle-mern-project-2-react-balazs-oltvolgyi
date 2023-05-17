@@ -11,18 +11,25 @@ function LeaderBoard(props) {
   return (
     <div>
       <table>
-        <tr>
-          <td className="nameCellHead">Name</td>
-          <td className="scoreCellHead">Score</td>
-        </tr>
-        {sortedUsers.map((user) => (
-          <tr className="scoreEntry" key={user.name}>
-            <td className="nameCell">{user.name}</td>
-            <td className="scoreCell">{user.points}</td>
+        <thead>
+          <tr>
+            <td className="nameCellHead">Name</td>
+            <td className="scoreCellHead">Score</td>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {sortedUsers.map((user) => (
+            <tr className="scoreEntry" key={user.name}>
+              <td className="nameCell">{user.name}</td>
+              <td className="scoreCell">{user.points}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
-      <button onClick={() => setScreen("welcome")} className="submitButton">
+      <button
+        onClick={() => setScreen("chooseGameMode")}
+        className="submitButton"
+      >
         New Game <span></span>
       </button>
     </div>

@@ -78,6 +78,17 @@ form label {
   display: flex;
   position: relative;
 }
+.chooseGameMode > div > img {
+  width: 350px;
+  height: 350px;
+}
+.gmlabel {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 .gameMode1,
 .gameMode2 {
   position: relative;
@@ -85,14 +96,56 @@ form label {
   left: 0;
   cursor: pointer;
 }
-.gmlabel {
+
+.quizMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.firstRow {
+  display: flex;
+  margin: 5px;
+  justify-content: space-evenly;
+}
+
+.secondRow {
+  margin: 5px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.answer {
+  cursor: pointer;
   color: white;
   font-size: 22px;
   font-weight: bold;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.quizMain > .finishButton,
+.firstRow > div > .finishButton,
+.secondRow > div > .finishButton {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-top: 5px;
+  max-width: 300px;
+}
+.quizScore {
+  margin-top: 50px;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
   background-color: rgba(0, 0, 0, 0.6);
   padding: 10px;
 }
-
 .randomFlag {
   position: absolute;
   top: 91px;
