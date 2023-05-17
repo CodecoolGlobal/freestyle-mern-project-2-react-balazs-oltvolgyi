@@ -8,8 +8,9 @@ function QuizMode(props) {
   const setScreen = props.setScreen;
   const setSortedUsers = props.setSortedUsers;
   const [randomCountry, setRandomCountry] = useState();
-  const [fourCountryName, setFourCountryName] = useState(["", "", "", ""]);
+  const [fourCountryName, setFourCountryName] = useState([]);
   const [quizScore, setQuizScore] = useState(0);
+  const [answerNumber, setAnswerNumber] = useState(4);
 
   function randomNumber(number) {
     return Math.floor(Math.random() * number);
@@ -40,13 +41,13 @@ function QuizMode(props) {
     if (answer === randomCountry.name) {
       setQuizScore(quizScore + 5);
       toast.success("You're right! Next round!", {
-        theme: "dark",
+        theme: "colored",
         autoClose: 2000,
       });
       randomFlagAndName();
     } else {
-      toast.info(`The solution was ${randomCountry.name}`, {
-        theme: "dark",
+      toast.error(`The solution was ${randomCountry.name}`, {
+        theme: "colored",
         autoClose: 2000,
       });
       randomFlagAndName();
@@ -55,7 +56,7 @@ function QuizMode(props) {
 
   function setCountryOptions() {
     let countryNames = [];
-    for (let x = 0; x < 4; x++) {
+    for (let x = 0; x < answerNumber; x++) {
       let temp = data[randomNumber(data.length)].name;
       if (countryNames.includes(temp)) {
         while (!countryNames.includes(temp)) {
@@ -65,7 +66,7 @@ function QuizMode(props) {
         countryNames.push(temp);
       }
     }
-    countryNames[randomNumber(4)] = randomCountry.name;
+    countryNames[randomNumber(answerNumber)] = randomCountry.name;
     setFourCountryName(countryNames);
   }
 
