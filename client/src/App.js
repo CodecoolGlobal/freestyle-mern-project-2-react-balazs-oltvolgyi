@@ -5,7 +5,8 @@ import Welcome from "./components/Welcome";
 import LeaderBoard from "./components/LeaderBoard";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import ChooseGame from "./components/ChooseGame";
+import QuizMode from "./components/QuizMode";
 
 function App() {
   const [data, setData] = useState([]);
@@ -20,7 +21,12 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         const nameAndFlag = data.map((cou) => {
-          return { name: cou.name.common, flag: cou.flags.png, region: cou.region, capital: cou.capital };
+          return {
+            name: cou.name.common,
+            flag: cou.flags.png,
+            region: cou.region,
+            capital: cou.capital,
+          };
         });
         setData(nameAndFlag);
       })
@@ -36,6 +42,19 @@ function App() {
           }
           case "register": {
             return <Register setUser={setUser} setScreen={setScreen} />;
+          }
+          case "chooseGameMode": {
+            return <ChooseGame setScreen={setScreen} />;
+          }
+          case "quiz": {
+            return (
+              <QuizMode
+                data={data}
+                setScreen={setScreen}
+                user={user}
+                setSortedUsers={setSortedUsers}
+              />
+            );
           }
           case "game": {
             return (

@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Game(props) {//ide majd useProps wagy rögtön distrust
+function Game(props) {
+  //ide majd useProps wagy rögtön distrust
   const [selectedCountry, setSelectedCountry] = useState();
   const [randCountry, setRandCountry] = useState();
   const [score, setScore] = useState(0);
@@ -30,10 +31,14 @@ function Game(props) {//ide majd useProps wagy rögtön distrust
     } else {
       if (counter === 0) {
         setCounter(counter + 1);
-        toast(`Incorrect, try again... Capital is ${randCountry.capital[0]}`, { theme: "dark" });
+        toast(`Incorrect, try again... Capital is ${randCountry.capital[0]}`, {
+          theme: "dark",
+        });
       } else if (counter === 1) {
         setCounter(counter + 1);
-        toast(`Incorrect, try again... Region is ${randCountry.region}`, { theme: "dark" });
+        toast(`Incorrect, try again... Region is ${randCountry.region}`, {
+          theme: "dark",
+        });
       } else {
         randomFlagFn();
         setCounter(0);
@@ -92,6 +97,7 @@ function Game(props) {//ide majd useProps wagy rögtön distrust
       <p>Logged in as {user.name}</p>
       <span className="text">What country does this flag belongs to?</span>
       <img
+        className="randomFlag"
         alt="flag of randCountry name"
         src={randCountry && randCountry.flag}
       />
