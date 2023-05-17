@@ -39,9 +39,16 @@ function QuizMode(props) {
     console.log(answer);
     if (answer === randomCountry.name) {
       setQuizScore(quizScore + 5);
-      toast("You're right! Next round!", { theme: "dark" });
+      toast.success("You're right! Next round!", {
+        theme: "dark",
+        autoClose: 2000,
+      });
       randomFlagAndName();
     } else {
+      toast.info(`The solution was ${randomCountry.name}`, {
+        theme: "dark",
+        autoClose: 2000,
+      });
       randomFlagAndName();
     }
   }
@@ -75,8 +82,8 @@ function QuizMode(props) {
     randomCountry &&
     fourCountryName && (
       <div className="quizMain">
-        <h1>Flag of ...</h1>
-        <div>
+        <h1 className="title">Flag of ...</h1>
+        <div className="flagContainer">
           <img className="quizFlag" src={randomCountry.flag} />
         </div>
         <div className="firstRow">

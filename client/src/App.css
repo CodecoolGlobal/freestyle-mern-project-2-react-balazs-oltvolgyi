@@ -105,12 +105,14 @@ form label {
 }
 
 .firstRow {
+  height: 100px;
   display: flex;
   margin: 5px;
   justify-content: space-evenly;
 }
 
 .secondRow {
+  height: 100px;
   margin: 5px;
   display: flex;
   justify-content: space-evenly;
@@ -379,4 +381,20 @@ h1 {
 
 tr.scoreEntry td {
   border-bottom: 1px solid white;
+}
+
+.title {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.flagContainer {
+  width: 400px;
+  height: 300px;
+}
+.flagContainer > img {
+  max-height: 300px;
 }
