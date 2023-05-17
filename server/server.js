@@ -4,8 +4,10 @@ const cors = require("cors");
 const User = require("./model/User.js");
 const LeaderBoard = require("./model/LeaderBoard.js");
 // const UserSchema = require("./model/User.js");
+const dotenv = require("dotenv").config();
 
 const app = express();
+const connectionString = process.env.MONGO_URL;
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
@@ -25,62 +27,58 @@ app.use(
   })
 );
 
-
-
-mongoose.connect(
-  "mongodb+srv://mongoDBuser:8xBqvbasy84EHKe@cluster0.ahid9oc.mongodb.net/flagfun"
-);
-
+mongoose.connect(connectionString).then(console.log("Server connection OK!"));
 
 // name and password validation
 app.get("/:name/:password", async (req, res) => {
   //console.log(req.params.name, req.params.password);
 
- try {
-  let foundUser = await User.findOne({name: req.params.name});
+  try {
+    let foundUser = await User.findOne({ name: req.params.name });
 
-  !foundUser 
-  ? res.json("Incorrect name!")
-  : foundUser.password === req.params.password 
-  ? res.json(foundUser) 
-  : res.json("Incorrect password!")
-
-
- } catch (error) {
-  res.json(error);
- }
-
-})
+    !foundUser
+      ? res.json("Incorrect name!")
+      : foundUser.password === req.params.password
+      ? res.json(foundUser)
+      : res.json("Incorrect password!");
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 app.post("/register", async (req, res) => {
-  
   try {
-    const userNameExists = await User.findOne({name: req.body.name});
+    const userNameExists = await User.findOne({ name: req.body.name });
 
-    if (!userNameExists ) {
-      let newUser = await User.create(req.body)
+    if (!userNameExists) {
+      let newUser = await User.create(req.body);
       res.json(newUser);
     } else {
-      res.json("User already exists!")
+      res.json("User already exists!");
     }
   } catch (error) {
-    res.json(error)
+    res.json(error);
   }
-})
+});
 
 app.patch("/api/score", async (req, res) => {
   console.log(req.body.name, req.body.score);
-try {
-  await User.findOneAndUpdate({name: req.body.name}, { $inc: { points: req.body.score } }, {new: true});
-  const responseBody = await User.find({},{name:1, points:1}).sort({ points: "desc" });
+  try {
+    await User.findOneAndUpdate(
+      { name: req.body.name },
+      { $inc: { points: req.body.score } },
+      { new: true }
+    );
+    const responseBody = await User.find({}, { name: 1, points: 1 }).sort({
+      points: "desc",
+    });
 
-  console.log(responseBody);
+    console.log(responseBody);
 
-  res.json(responseBody);
-} catch (error) {
-  res.json(error);
-}
-
+    res.json(responseBody);
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 app.listen(3001, () => console.log("Server started on port 3001"));
