@@ -9,15 +9,24 @@ function Login(props) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    console.log("event targetek: " + event.target[0].value, event.target[1].value)
+    console.log(
+      "event targetek: " + event.target[0].value,
+      event.target[1].value
+    );
 
-    fetch(`http://localhost:3001/${event.target[0].value}/${event.target[1].value}`)
-    .then(res => res.json())
-    .then(data => 
-        typeof data === "object" 
-        ? (setScreen("game"), setUser(data))
-        : toast("Incorrect name and/or password!", { theme: "dark", position: "top-right" }))
-      }
+    fetch(
+      `http://localhost:3001/${event.target[0].value}/${event.target[1].value}`
+    )
+      .then((res) => res.json())
+      .then((data) =>
+        typeof data === "object"
+          ? (setScreen("game"), setUser(data))
+          : toast("Incorrect name and/or password!", {
+              theme: "dark",
+              position: "top-right",
+            })
+      );
+  }
 
   return (
     <div className="login">
@@ -35,17 +44,21 @@ function Login(props) {
           <label>Name: </label>
         </div>
         <div className="user-box">
-          <input type="text" required={true}></input>
+          <input type="password" required={true}></input>
           <label>Password: </label>
         </div>
         <button type="submit" className="userFormButton">
           Start game<span></span>
         </button>
       </form>
-      <button style={{fontSize:"small"}} onClick={() => setScreen("register")} className="userFormButton">
-          Register<span></span>
-        </button>
-        <ToastContainer theme="dark" position="top-right" />
+      <button
+        style={{ fontSize: "small" }}
+        onClick={() => setScreen("register")}
+        className="userFormButton"
+      >
+        Register<span></span>
+      </button>
+      <ToastContainer theme="dark" position="top-right" />
     </div>
   );
 }

@@ -13,23 +13,24 @@ function Register(props) {
     const entries = [...formData.entries()];
 
     const newUser = entries.reduce((acc, entry) => {
-        const [key, value] = entry;
-        acc[key] = value;
-        return acc;
-    }, {})
+      const [key, value] = entry;
+      acc[key] = value;
+      return acc;
+    }, {});
 
-    newUser.password === newUser.password2 
-    ? fetch("http://localhost:3001/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser)
-    }).then(res => res.json()).then(data => 
-        typeof data === "string" 
-        ? toast("Username already exists!", { theme: "dark" })
-        : (setScreen("game"), 
-            setUser(data))
-        )
-    : toast("The passwords do not match!", { theme: "dark" })
+    newUser.password === newUser.password2
+      ? fetch("http://localhost:3001/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) =>
+            typeof data === "string"
+              ? toast("Username already exists!", { theme: "dark" })
+              : (setScreen("game"), setUser(data))
+          )
+      : toast("The passwords do not match!", { theme: "dark" });
 
     //   setScreen("game");
     //   setUser({
@@ -38,15 +39,12 @@ function Register(props) {
     //     address: event.target[2].value,
     //     shoeSize: event.target[3].value,
     //   });
-    }
-  
+  }
 
   return (
     <div className="welcome">
       <h1> Welcome</h1>
-      <h2>
-        Please register with a name and password. 
-      </h2>
+      <h2>Please register with a name and password.</h2>
       <br></br>
       <form className="userForm" onSubmit={(event) => handleSubmit(event)}>
         <div className="user-box">
@@ -54,11 +52,11 @@ function Register(props) {
           <label>Name </label>
         </div>
         <div className="user-box">
-          <input name="password" type="text" required={true}></input>
+          <input name="password" type="password" required={true}></input>
           <label>Password </label>
         </div>
         <div className="user-box">
-          <input name="password2" type="text" required={true}></input>
+          <input name="password2" type="password" required={true}></input>
           <label>Password again </label>
         </div>
         <div className="user-box">
