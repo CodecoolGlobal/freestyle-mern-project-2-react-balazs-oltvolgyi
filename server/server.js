@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const User = require("./model/User.js");
+const bcrypt = require("bcryptjs");
 const LeaderBoard = require("./model/LeaderBoard.js");
 // const UserSchema = require("./model/User.js");
 const dotenv = require("dotenv").config();
