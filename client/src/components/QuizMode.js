@@ -63,6 +63,7 @@ function QuizMode(props) {
         while (!countryNames.includes(temp)) {
           temp = data[randomNumber(data.length)].name;
         }
+        countryNames.push(temp);
       } else {
         countryNames.push(temp);
       }
@@ -71,6 +72,7 @@ function QuizMode(props) {
     } else {
       countryNames[randomNumber(answerNumber)] = randomCountry.name;
     }
+    console.log(countryNames);
     setFourCountryName(countryNames);
   }
 
