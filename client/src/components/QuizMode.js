@@ -79,14 +79,14 @@ function QuizMode(props) {
 
   useEffect(() => {
     randomFlagAndName();
-    toast.info(`Logged in as ${activeUser.name}`, {
-      theme: "colored",
-      autoClose: 3000,
-    });
+    activeUser &&
+      toast.info(`Logged in as ${activeUser.name}`, {
+        theme: "colored",
+        autoClose: 3000,
+      });
   }, []);
 
   useEffect(() => {
-    console.log(randomCountry);
     randomCountry && generateCountryOptions();
   }, [randomCountry]);
 
