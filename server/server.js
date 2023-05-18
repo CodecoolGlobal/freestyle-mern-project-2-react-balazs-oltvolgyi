@@ -73,7 +73,6 @@ app.post("/register", async (req, res) => {
 });
 
 app.patch("/api/score", async (req, res) => {
-  console.log(req.body.name, req.body.score);
   try {
     await User.findOneAndUpdate(
       { name: req.body.name },
@@ -83,9 +82,6 @@ app.patch("/api/score", async (req, res) => {
     const responseBody = await User.find({}, { name: 1, points: 1 }).sort({
       points: "desc",
     });
-
-    console.log(responseBody);
-
     res.json(responseBody);
   } catch (error) {
     res.json(error);
