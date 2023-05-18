@@ -21,6 +21,7 @@ function QuizMode(props) {
   }
 
   async function updateUserScore() {
+    console.log(user);
     try {
       const res = await fetch("http://localhost:3001/api/score", {
         method: "PATCH",

@@ -33,26 +33,36 @@ mongoose.connect(connectionString).then(console.log("Server connection OK!"));
 // name and password validation
 app.get("/:name/:password", async (req, res) => {
   //console.log(req.params.name, req.params.password);
-
+  const { name, password } = req.params;
   try {
-    let foundUser = await User.findOne({ name: req.params.name });
-
-    !foundUser
-      ? res.json("Incorrect name!")
-      : foundUser.password === req.params.password
-      ? res.json(foundUser)
-      : res.json("Incorrect password!");
+    let foundUser = await User.findOne({ name });
+    if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
+      res.status(200).json(foundUser);
+    } else {
+      res.status(401);
+      throw new Error("Invalid credentials.");
+    }
   } catch (error) {
     res.json(error);
   }
 });
 
 app.post("/register", async (req, res) => {
+  const { name, password, password2, address, email } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
   try {
-    const userNameExists = await User.findOne({ name: req.body.name });
+    const userNameExists = await User.findOne({ name: name });
 
     if (!userNameExists) {
-      let newUser = await User.create(req.body);
+      let user = {
+        name: name,
+        password: hashedPassword,
+        address: address,
+        email: email,
+        points: 0,
+      };
+      let newUser = await User.create(user);
       res.json(newUser);
     } else {
       res.json("User already exists!");
