@@ -67,7 +67,10 @@ function QuizMode(props) {
         countryNames.push(temp);
       }
     }
-    countryNames[randomNumber(answerNumber)] = randomCountry.name;
+    if (countryNames.includes(randomCountry.name)) {
+    } else {
+      countryNames[randomNumber(answerNumber)] = randomCountry.name;
+    }
     setFourCountryName(countryNames);
   }
 
