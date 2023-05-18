@@ -21,8 +21,8 @@ function Login(props) {
       .then((data) =>
         data.name
           ? (setScreen("chooseGameMode"), setUser(data))
-          : toast("Incorrect name and/or password!", {
-              theme: "dark",
+          : toast.error("Incorrect name and/or password!", {
+              theme: "colored",
               position: "top-right",
             })
       );

@@ -3,8 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function QuizMode(props) {
-  const user = props.user;
-  const data = props.data;
+  const activeUser = props.user;
+  const restCountriesAll = props.data;
   const setScreen = props.setScreen;
   const setSortedUsers = props.setSortedUsers;
   const [randomCountry, setRandomCountry] = useState();
@@ -17,16 +17,17 @@ function QuizMode(props) {
   }
 
   function randomFlagAndName() {
-    setRandomCountry(data[randomNumber(data.length)]);
+    setRandomCountry(restCountriesAll[randomNumber(restCountriesAll.length)]);
   }
 
   async function updateUserScore() {
-    console.log(user);
+    console.log(activeUser);
+    toast.dismiss();
     try {
       const res = await fetch("http://localhost:3001/api/score", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: user.name, score: quizScore }),
+        body: JSON.stringify({ name: activeUser.name, score: quizScore }),
       });
       const data = await res.json();
       //console.log(data);
@@ -56,28 +57,32 @@ function QuizMode(props) {
   }
 
   function generateCountryOptions() {
-    let countryNames = [];
+    let countryOptions = [];
     for (let x = 0; x < answerNumber; x++) {
-      let temp = data[randomNumber(data.length)].name;
-      if (countryNames.includes(temp)) {
-        while (!countryNames.includes(temp)) {
-          temp = data[randomNumber(data.length)].name;
+      let temp = restCountriesAll[randomNumber(restCountriesAll.length)].name;
+      if (countryOptions.includes(temp)) {
+        while (!countryOptions.includes(temp)) {
+          temp = restCountriesAll[randomNumber(restCountriesAll.length)].name;
         }
-        countryNames.push(temp);
+        countryOptions.push(temp);
       } else {
-        countryNames.push(temp);
+        countryOptions.push(temp);
       }
     }
-    if (countryNames.includes(randomCountry.name)) {
+    if (countryOptions.includes(randomCountry.name)) {
     } else {
-      countryNames[randomNumber(answerNumber)] = randomCountry.name;
+      countryOptions[randomNumber(answerNumber)] = randomCountry.name;
     }
-    console.log(countryNames);
-    setFourCountryName(countryNames);
+    console.log(countryOptions);
+    setFourCountryName(countryOptions);
   }
 
   useEffect(() => {
     randomFlagAndName();
+    toast.info(`Logged in as ${activeUser.name}`, {
+      theme: "colored",
+      autoClose: 3000,
+    });
   }, []);
 
   useEffect(() => {
@@ -89,7 +94,6 @@ function QuizMode(props) {
     randomCountry &&
     fourCountryName && (
       <div className="quizMain">
-        <p>Logged in as {user.name}</p>
         <div className="flagContainer">
           <img className="quizFlag" src={randomCountry.flag} />
         </div>
@@ -145,7 +149,10 @@ function QuizMode(props) {
         <div className="quizScore">Your score: {quizScore}</div>
         <button
           className="finishButton"
-          onClick={() => setScreen("chooseGameMode")}
+          onClick={() => {
+            toast.dismiss();
+            setScreen("chooseGameMode");
+          }}
         >
           Back to game modes<span></span>
         </button>

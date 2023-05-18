@@ -73,7 +73,7 @@ function App() {
           case "leaderboard": {
             return (
               <div className="leaderboard">
-                <h2>High scores </h2>
+                <h1>High scores </h1>
                 <LeaderBoard sortedUsers={sortedUsers} setScreen={setScreen} />
               </div>
             );

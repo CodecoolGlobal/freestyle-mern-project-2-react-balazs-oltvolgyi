@@ -9,7 +9,7 @@ function LeaderBoard(props) {
   }, [sortedUsers]);
 
   return (
-    <div>
+    <div className="tableContainer">
       <table>
         <thead>
           <tr>
