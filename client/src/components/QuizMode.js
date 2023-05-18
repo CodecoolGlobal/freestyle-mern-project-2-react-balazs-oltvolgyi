@@ -57,23 +57,16 @@ function QuizMode(props) {
   }
 
   function generateCountryOptions() {
-    let countryOptions = [];
-    for (let x = 0; x < answerNumber; x++) {
-      let temp = restCountriesAll[randomNumber(restCountriesAll.length)].name;
-      if (countryOptions.includes(temp)) {
-        while (!countryOptions.includes(temp)) {
-          temp = restCountriesAll[randomNumber(restCountriesAll.length)].name;
-        }
-        countryOptions.push(temp);
-      } else {
+    const countryOptions = [];
+    while (countryOptions.length < answerNumber) {
+      const temp = restCountriesAll[randomNumber(restCountriesAll.length)].name;
+      if (!countryOptions.includes(temp)) {
         countryOptions.push(temp);
       }
     }
-    if (countryOptions.includes(randomCountry.name)) {
-    } else {
+    if (!countryOptions.includes(randomCountry.name)) {
       countryOptions[randomNumber(answerNumber)] = randomCountry.name;
     }
-    console.log(countryOptions);
     setFourCountryName(countryOptions);
   }
 
