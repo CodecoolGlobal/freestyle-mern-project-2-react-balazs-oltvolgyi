@@ -35,7 +35,8 @@ app.get("/:name/:password", async (req, res) => {
   //console.log(req.params.name, req.params.password);
   const { name, password } = req.params;
   try {
-    let foundUser = await User.findOne({ name });
+    let foundUser;
+    foundUser = await User.findOne({ name });
     if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
       res.status(200).json(foundUser);
     } else {
@@ -50,6 +51,7 @@ app.get("/:name/:password", async (req, res) => {
 app.post("/register", async (req, res) => {
   const { name, password, password2, address, email } = req.body;
   const salt = await bcrypt.genSalt(10);
+  console.log(salt);
   const hashedPassword = await bcrypt.hash(password, salt);
   try {
     const userNameExists = await User.findOne({ name: name });

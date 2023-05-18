@@ -28,17 +28,9 @@ function Register(props) {
           .then((data) =>
             typeof data === "string"
               ? toast("Username already exists!", { theme: "dark" })
-              : (setScreen("game"), setUser(data))
+              : (setScreen("chooseGameMode"), setUser(data))
           )
       : toast("The passwords do not match!", { theme: "dark" });
-
-    //   setScreen("game");
-    //   setUser({
-    //     name: event.target[0].value,
-    //     email: event.target[1].value,
-    //     address: event.target[2].value,
-    //     shoeSize: event.target[3].value,
-    //   });
   }
 
   return (

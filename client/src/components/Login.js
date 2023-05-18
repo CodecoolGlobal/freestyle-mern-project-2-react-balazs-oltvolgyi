@@ -19,7 +19,7 @@ function Login(props) {
     )
       .then((res) => res.json())
       .then((data) =>
-        typeof data === "object"
+        data.name
           ? (setScreen("chooseGameMode"), setUser(data))
           : toast("Incorrect name and/or password!", {
               theme: "dark",

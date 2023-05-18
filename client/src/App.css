@@ -103,6 +103,11 @@ form label {
   justify-content: space-around;
   align-items: center;
 }
+.quizMain > p {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+}
 
 .firstRow {
   height: 100px;
@@ -138,7 +143,7 @@ form label {
   top: 0;
   left: 0;
   margin-top: 5px;
-  max-width: 300px;
+  width: 300px;
 }
 .quizScore {
   margin-top: 50px;
@@ -392,6 +397,7 @@ tr.scoreEntry td {
 }
 
 .flagContainer {
+  margin-top: 20px;
   width: 400px;
   height: 300px;
 }

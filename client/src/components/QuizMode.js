@@ -55,7 +55,7 @@ function QuizMode(props) {
     }
   }
 
-  function setCountryOptions() {
+  function generateCountryOptions() {
     let countryNames = [];
     for (let x = 0; x < answerNumber; x++) {
       let temp = data[randomNumber(data.length)].name;
@@ -80,17 +80,18 @@ function QuizMode(props) {
 
   useEffect(() => {
     console.log(randomCountry);
-    randomCountry && setCountryOptions();
+    randomCountry && generateCountryOptions();
   }, [randomCountry]);
 
   return (
     randomCountry &&
     fourCountryName && (
       <div className="quizMain">
-        <h1 className="title">Flag of ...</h1>
+        <p>Logged in as {user.name}</p>
         <div className="flagContainer">
           <img className="quizFlag" src={randomCountry.flag} />
         </div>
+        <h1 className="title">Flag of ...</h1>
         <div className="firstRow">
           <div className="answer">
             <button
